@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.contenttypes import fields
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext, ugettext_lazy as _
@@ -198,6 +199,10 @@ class Review(models.Model):
             if timezone.now() > period_end:
                 return False
         return True
+
+    def get_absolute_url(self):
+        return reverse("review_detail", kwargs={"pk": self.pk})
+
 
 
 @python_2_unicode_compatible
